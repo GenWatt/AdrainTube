@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../duck/allReducers";
 import { Iid } from "../../duck/types/searchResultTypes";
 import { OFFSET_TO_LOAD_COMMENT } from "../../config/searchOptions";
+import { useCallback } from "react";
 
 function Comment({ videoId }: Iid) {
   let { items, isLoading, nextPageToken } = useSelector(
@@ -24,17 +25,17 @@ function Comment({ videoId }: Iid) {
   );
   const dispatch = useDispatch();
 
-  const loadMoreComments = () => {
+  const loadMoreComments =useCallback(()=>{
     if (!isLoading)
-      dispatch(
-        allActions.searchResultsActions.fetchComments({
-          videoId,
-          nextPageToken,
-        })
-      );
-  };
-
-  const scrollHandler = () => {
+    dispatch(
+      allActions.searchResultsActions.fetchComments({
+        videoId,
+        nextPageToken,
+      })
+    );
+  },[isLoading,nextPageToken,videoId,dispatch]) 
+   
+  const scrollHandler = useCallback(()=>{ 
     const windowHeight: number = window.innerHeight;
     const bodyHeight: number = document.body.offsetHeight;
     const scroll: number = window.scrollY;
@@ -43,13 +44,15 @@ function Comment({ videoId }: Iid) {
       bodyHeight - OFFSET_TO_LOAD_COMMENT <= scroll + windowHeight &&
       nextPageToken
     )
-      loadMoreComments();
-  };
+      loadMoreComments()
+    },[loadMoreComments,nextPageToken]) 
+   
+  
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });
     return () => window.removeEventListener("scroll", scrollHandler);
-  }, [items]);
+  }, [items,scrollHandler]);
 
   useEffect(() => {
     dispatch(allActions.searchResultsActions.fetchComments({ videoId }));

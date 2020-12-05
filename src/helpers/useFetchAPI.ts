@@ -21,27 +21,23 @@ class FetchData {
   /**
    * Get videos details from youtube API
    */
-  public getVideos(
-    searchValue: string
-  ): Promise<Response<IItem> | IErrorFetch> {
+  public getVideos(searchValue: string): Promise<Response<IItem> | IErrorFetch> {
     return this.fetchVideos(searchValue);
   }
 
   /**
    * Get comment details from youtube API
    */
-  public getComments(
-    videoId: IFetchComments
-  ): Promise<Response<IComment> | IErrorFetch> {
+  public getComments(videoId: IFetchComments): Promise<Response<IComment> | IErrorFetch> {
     return this.fetchComments(videoId);
   }
 
-  private async fetchVideos(
-    searchValue: string
-  ): Promise<Response<IItem> | IErrorFetch> {
+  private async fetchVideos(searchValue: string): Promise<Response<IItem> | IErrorFetch> {
     try {
       const URL: string = this.videosURL + searchValue;
       const videos: Response<IItem> = await (await fetch(URL)).json();
+
+      console.log(videos);
 
       return videos;
     } catch (e) {
