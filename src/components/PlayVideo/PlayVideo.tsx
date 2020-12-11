@@ -29,7 +29,7 @@ export default function PlayVideo() {
   return (
     <PlayVideoSection>
       <MainVideo
-        src={`http://www.youtube.com/embed/${videoId}?autoplay=1`}
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
         title={videoId}
       ></MainVideo>
       <Suspense fallback={<Loader />}>

@@ -37,8 +37,6 @@ class FetchData {
       const URL: string = this.videosURL + searchValue;
       const videos: Response<IItem> = await (await fetch(URL)).json();
 
-      console.log(videos);
-
       return videos;
     } catch (e) {
       return { massage: e.massage, error: true };

@@ -24,9 +24,8 @@ function Search() {
     }
   };
 
-  const activeLabel = () => {
-    setFocus(true);
-  };
+  const activeLabel = () => setFocus(true);
+
 
   const disactiveLabel = () => {
     if (!search) setFocus(false);

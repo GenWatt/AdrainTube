@@ -27,7 +27,7 @@ export default function VideosSection({ vertical, video }: Iprops) {
           if (!vertical)
             dispatch(
               allActions.searchActions.setBgVideo({
-                url: `http://www.youtube.com/embed/${video.id.videoId}?autoplay=1&mute=1&controls=0`,
+                url: `https://www.youtube.com/embed/${video.id.videoId}?autoplay=1&mute=1&controls=0`,
                 title: video.id.videoId,
               })
             );
