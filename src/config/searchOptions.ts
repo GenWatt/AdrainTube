@@ -1,10 +1,4 @@
-export const defaultSearchOptions: string[] = [
-  "music",
-  "football",
-  "animals",
-  "COVID-19",
-  "film trailer",
-];
+export const defaultSearchOptions: string[] = ["movies", "football", "animals", "COVID-19", "film trailer"];
 
 export const MAX_COMMNETS: number = 15;
 export const MAX_VIDEOS: number = 6;

@@ -1,11 +1,6 @@
 import { takeLatest, put, all } from "redux-saga/effects";
 import FetchData from "../../helpers/useFetchAPI";
-import {
-  ADD_VIDEOS,
-  ADD_COMMENTS,
-  AddCommentsToState,
-  AddVideoToState,
-} from "../types/searchResultTypes";
+import { ADD_VIDEOS, ADD_COMMENTS, AddCommentsToState, AddVideoToState } from "../types/searchResultTypes";
 import allActions from "../allActions";
 import { IErrorFetch } from "../../helpers/useFetchInterface";
 
@@ -15,8 +10,7 @@ function* getVideos(action: AddVideoToState) {
 
   if (data.error && data.massage) yield dispatchError(data);
   else if (data.error && !data.massage) yield defaultError();
-  else if (!data.error)
-    yield put(allActions.searchResultsActions.addVideosToState(data));
+  else if (!data.error) yield put(allActions.searchResultsActions.addVideosToState(data));
 }
 
 function* getComments(action: AddCommentsToState) {
@@ -24,9 +18,9 @@ function* getComments(action: AddCommentsToState) {
   const data = yield callApi.getComments(action.payload);
 
   if (data.error && data.massage) yield dispatchError(data);
-  else if (data.error && !data.massage) yield defaultError();
-  else if (!data.error)
-    yield put(allActions.searchResultsActions.addCommentsToState(data));
+  else if (data.error && !data.massage)
+    if (data.error.errors[0].reason !== "commentsDisabled") yield defaultError();
+    else if (!data.error) yield put(allActions.searchResultsActions.addCommentsToState(data));
 }
 
 function* defaultError() {
@@ -48,10 +42,7 @@ function* dispatchError(data: IErrorFetch) {
 }
 
 function* watchAll() {
-  yield all([
-    takeLatest(ADD_VIDEOS, getVideos),
-    takeLatest(ADD_COMMENTS, getComments),
-  ]);
+  yield all([takeLatest(ADD_VIDEOS, getVideos), takeLatest(ADD_COMMENTS, getComments)]);
 }
 
 export default watchAll;

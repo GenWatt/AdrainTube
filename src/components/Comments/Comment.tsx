@@ -25,7 +25,7 @@ function Comment({ videoId }: Iid) {
   );
   const dispatch = useDispatch();
 
-  const loadMoreComments =useCallback(()=>{
+  const loadMoreComments = useCallback(()=>{
     if (!isLoading)
     dispatch(
       allActions.searchResultsActions.fetchComments({
@@ -46,8 +46,6 @@ function Comment({ videoId }: Iid) {
     )
       loadMoreComments()
     },[loadMoreComments,nextPageToken]) 
-   
-  
 
   useEffect(() => {
     window.addEventListener("scroll", scrollHandler, { passive: true });

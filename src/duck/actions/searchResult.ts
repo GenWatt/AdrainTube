@@ -17,10 +17,7 @@ const fetchVideos = (searchValue: string): searchResultAction => ({
   payload: searchValue,
 });
 
-const fetchComments = (parameters: {
-  videoId: string;
-  nextPageToken?: string;
-}): searchResultAction => ({
+const fetchComments = (parameters: { videoId: string; nextPageToken?: string }): searchResultAction => ({
   type: ADD_COMMENTS,
   payload: parameters,
 });
